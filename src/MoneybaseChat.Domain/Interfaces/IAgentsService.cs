@@ -4,7 +4,7 @@ namespace MoneybaseChat.Domain.Interfaces
 {
     public interface IAgentsService
     {
-        Task<Agent?> GetAgentToAssingChatSession();
+        Task<Agent?> GetAgentToAssingChatSession(bool isOverflow = false);
 
         Task<int> GetAgentsCapacityOfOnShiftAsync();
 

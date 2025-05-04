@@ -5,7 +5,7 @@ using MoneybaseChat.Domain.Interfaces;
 
 namespace MoneybaseChat.Infrastructure.Services
 {
-    public class AgentsService : IAgentsService
+    internal class AgentsService : IAgentsService
     {
 
         private List<Agent> _agents = new List<Agent>()
@@ -54,17 +54,49 @@ namespace MoneybaseChat.Infrastructure.Services
                 SeniorityLevel = SeniorityLevel.Junior,
                 CurrentChats = 0
             },
+            new Agent()
+            {
+                Id = 300,
+                IsOnShift = true,
+                IsOverflow = true,
+                SeniorityLevel = SeniorityLevel.Junior,
+                CurrentChats = 0
+            },
+            new Agent()
+            {
+                Id = 400,
+                IsOnShift = true,
+                IsOverflow = true,
+                SeniorityLevel = SeniorityLevel.Junior,
+                CurrentChats = 0
+            },
+            new Agent()
+            {
+                Id = 500,
+                IsOnShift = true,
+                IsOverflow = true,
+                SeniorityLevel = SeniorityLevel.Junior,
+                CurrentChats = 0
+            },
+            new Agent()
+            {
+                Id = 600,
+                IsOnShift = true,
+                IsOverflow = true,
+                SeniorityLevel = SeniorityLevel.Junior,
+                CurrentChats = 0
+            },
         };
 
 
-        public async Task<Agent?> GetAgentToAssingChatSession()
+        public async Task<Agent?> GetAgentToAssingChatSession(bool isOverflow = false)
         {
-            var agentList = GetAllAgents();
+            var agentList = GetAllAgents(isOverflow);
 
             var agents = agentList.Where(s => s.IsOnShift).OrderBy(s => EfficiencyHelper.Efficiency[s.SeniorityLevel]).ToList();
 
             //Juniors
-            var juniorAgents = agents.Where(s => s.CurrentChats < (int)10 * EfficiencyHelper.Efficiency[s.SeniorityLevel] && s.SeniorityLevel == SeniorityLevel.Junior).ToList();
+            var juniorAgents = agents.Where(s => s.CurrentChats < (int)10 * EfficiencyHelper.Efficiency[s.SeniorityLevel] && s.SeniorityLevel == SeniorityLevel.Junior && !s.IsOverflow).ToList();
 
             if (juniorAgents.Any())
             {
@@ -95,12 +127,22 @@ namespace MoneybaseChat.Infrastructure.Services
                 return await Task.FromResult(teamLeads.First());
             }
 
+            //Overflow agents
+            if (isOverflow)
+            {
+                var overflowAgents = agents.Where(s => s.CurrentChats < (int)10 * EfficiencyHelper.Efficiency[s.SeniorityLevel] && s.IsOverflow).ToList();
+                if (overflowAgents.Any())
+                {
+                    return await Task.FromResult(overflowAgents.First());
+                }
+            }
+
             return null;
         }
 
         public async Task<int> GetAgentsCapacityOfOnShiftAsync()
         {
-            var agents = GetAllAgents();
+            var agents = GetAllAgents(false);
 
             var capacity = EfficiencyHelper.CalculateTeamCapacity(agents);
 
@@ -114,15 +156,18 @@ namespace MoneybaseChat.Infrastructure.Services
             return Task.CompletedTask;
         }
 
-        private List<Agent> GetAllAgents()
+        private List<Agent> GetAllAgents(bool isOverFlow =  false)
         {
             var allAgents = new List<Agent>();
 
             allAgents.AddRange(_agents);
-
-            if (Common.IsOfficeHours(DateTime.Now))
+            
+            if (isOverFlow)
             {
-                allAgents.AddRange(_overFlowAgents);
+                if (Common.IsOfficeHours(DateTime.Now))
+                {
+                    allAgents.AddRange(_overFlowAgents);
+                }
             }
 
             return allAgents;

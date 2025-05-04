@@ -10,4 +10,7 @@
     <ProjectReference Include="..\MoneybaseChat.Application\MoneybaseChat.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="MoneybaseChatTest" />
+  </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35514.174 d17.12
+VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneybaseChat.Api", "src\MoneybaseChat.Api\MoneybaseChat.Api.csproj", "{281E97AF-CE00-44B9-B9E2-12E64055F262}"
 EndProject
@@ -12,6 +12,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneybaseChat.Application", "src\MoneybaseChat.Application\MoneybaseChat.Application.csproj", "{97DCA7FB-AF29-4BE5-8D40-C58992FBD960}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneybaseChat.Domain", "src\MoneybaseChat.Domain\MoneybaseChat.Domain.csproj", "{DF6E5E48-20E7-4BEC-8EB2-91370B19AE60}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{FCFE931D-091E-455E-89BD-563A75016820}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneybaseChatTest", "MoneybaseChatTest\MoneybaseChatTest.csproj", "{1498FE97-DDAB-4104-9481-35364113FC4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,10 @@ Global
 		{DF6E5E48-20E7-4BEC-8EB2-91370B19AE60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF6E5E48-20E7-4BEC-8EB2-91370B19AE60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF6E5E48-20E7-4BEC-8EB2-91370B19AE60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1498FE97-DDAB-4104-9481-35364113FC4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1498FE97-DDAB-4104-9481-35364113FC4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1498FE97-DDAB-4104-9481-35364113FC4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1498FE97-DDAB-4104-9481-35364113FC4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,5 +52,6 @@ Global
 		{309A9D04-D827-4C9B-B541-C9A669130DD4} = {02E6A0CF-415B-49A5-8B61-F9508BEDCCF1}
 		{97DCA7FB-AF29-4BE5-8D40-C58992FBD960} = {02E6A0CF-415B-49A5-8B61-F9508BEDCCF1}
 		{DF6E5E48-20E7-4BEC-8EB2-91370B19AE60} = {02E6A0CF-415B-49A5-8B61-F9508BEDCCF1}
+		{1498FE97-DDAB-4104-9481-35364113FC4C} = {FCFE931D-091E-455E-89BD-563A75016820}
 	EndGlobalSection
 EndGlobal

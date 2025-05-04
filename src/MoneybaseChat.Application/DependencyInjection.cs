@@ -17,8 +17,6 @@ namespace MoneybaseChat.Application
 
             builder.Services.AddScoped<IAssignChatsUseCase, AssignChatsUseCase>();
 
-            //builder.Services.AddSingleton<ChatAssignmentService>();
-
             builder.Services.Configure<HostOptions>(x =>
             {
                 x.StartupTimeout = TimeSpan.FromSeconds(5);

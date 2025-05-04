@@ -24,11 +24,10 @@ namespace MoneybaseChat.Application.UseCases
             var chatSession = new ChatSession()
             {
                 SessionId = sessionId,
-                IsActivve = true,
+                IsActive = true,
             };
-            var teamCapacity = await _agentsService.GetAgentsCapacityOfOnShiftAsync();
-
             var sessionCount = await _sessionQueueService.GetCurrentSessionCount();
+            var teamCapacity = await _agentsService.GetAgentsCapacityOfOnShiftAsync();
 
             if (sessionCount >= teamCapacity) return Result<Guid>.Failure("Team capacity meet the threashold.");
 
@@ -51,6 +50,13 @@ namespace MoneybaseChat.Application.UseCases
             if (chatSession is null) return Result<ChatSession>.Failure("Chat session not yet assign or found.");
 
             return Result<ChatSession>.Success(chatSession);
+        }
+
+        public async Task<Result<int>> GetTeamCapacity()
+        {
+            var teamCapacity = await _agentsService.GetAgentsCapacityOfOnShiftAsync();
+
+            return Result<int>.Success(teamCapacity);
         }
     }
 }

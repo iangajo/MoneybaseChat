@@ -12,7 +12,7 @@ namespace MoneybaseChat.Application.Services
             var chatSession = new ChatSession()
             {
                 SessionId = sessionId,
-                IsActivve = true,
+                IsActive = true,
                 AssignedAgentId = agentId,
             };
 

@@ -7,7 +7,7 @@ namespace MoneybaseChat.Domain.Helpers
     {
         public static int CalculateTeamCapacity(List<Agent> agents)
         {
-            double total = agents.Sum(a => 10 * Efficiency[a.SeniorityLevel]);
+            double total = agents.Sum(a => 10 * Efficiency[a.SeniorityLevel]) * 1.5;
             return (int)Math.Floor(total);
         }
 
