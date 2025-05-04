@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35514.174 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneybaseChat.Api", "src\MoneybaseChat.Api\MoneybaseChat.Api.csproj", "{281E97AF-CE00-44B9-B9E2-12E64055F262}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02E6A0CF-415B-49A5-8B61-F9508BEDCCF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneybaseChat.Infrastructure", "src\MoneybaseChat.Infrastructure\MoneybaseChat.Infrastructure.csproj", "{309A9D04-D827-4C9B-B541-C9A669130DD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneybaseChat.Application", "src\MoneybaseChat.Application\MoneybaseChat.Application.csproj", "{97DCA7FB-AF29-4BE5-8D40-C58992FBD960}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneybaseChat.Domain", "src\MoneybaseChat.Domain\MoneybaseChat.Domain.csproj", "{DF6E5E48-20E7-4BEC-8EB2-91370B19AE60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{281E97AF-CE00-44B9-B9E2-12E64055F262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{281E97AF-CE00-44B9-B9E2-12E64055F262}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{281E97AF-CE00-44B9-B9E2-12E64055F262}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{281E97AF-CE00-44B9-B9E2-12E64055F262}.Release|Any CPU.Build.0 = Release|Any CPU
+		{309A9D04-D827-4C9B-B541-C9A669130DD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{309A9D04-D827-4C9B-B541-C9A669130DD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{309A9D04-D827-4C9B-B541-C9A669130DD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{309A9D04-D827-4C9B-B541-C9A669130DD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97DCA7FB-AF29-4BE5-8D40-C58992FBD960}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97DCA7FB-AF29-4BE5-8D40-C58992FBD960}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97DCA7FB-AF29-4BE5-8D40-C58992FBD960}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97DCA7FB-AF29-4BE5-8D40-C58992FBD960}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF6E5E48-20E7-4BEC-8EB2-91370B19AE60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF6E5E48-20E7-4BEC-8EB2-91370B19AE60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF6E5E48-20E7-4BEC-8EB2-91370B19AE60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF6E5E48-20E7-4BEC-8EB2-91370B19AE60}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{281E97AF-CE00-44B9-B9E2-12E64055F262} = {02E6A0CF-415B-49A5-8B61-F9508BEDCCF1}
+		{309A9D04-D827-4C9B-B541-C9A669130DD4} = {02E6A0CF-415B-49A5-8B61-F9508BEDCCF1}
+		{97DCA7FB-AF29-4BE5-8D40-C58992FBD960} = {02E6A0CF-415B-49A5-8B61-F9508BEDCCF1}
+		{DF6E5E48-20E7-4BEC-8EB2-91370B19AE60} = {02E6A0CF-415B-49A5-8B61-F9508BEDCCF1}
+	EndGlobalSection
+EndGlobal
