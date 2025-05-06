@@ -33,11 +33,7 @@ namespace MoneybaseChat.Infrastructure.Services
                 IsOverflow = false,
                 SeniorityLevel = SeniorityLevel.Junior,
                 CurrentChats = 0
-            }
-        };
-
-        private List<Agent> _overFlowAgents = new List<Agent>()
-        {
+            },
             new Agent()
             {
                 Id = 100,
@@ -88,10 +84,10 @@ namespace MoneybaseChat.Infrastructure.Services
             },
         };
 
-
-        public async Task<Agent?> GetAgentToAssingChatSession(bool isOverflow = false)
+       
+        public async Task<Agent?> GetAgentToAssingChatSession(bool isOverflow = false, DateTime? systemDate = null)
         {
-            var agentList = GetAllAgents(isOverflow);
+            var agentList = GetAllAgents(isOverflow, systemDate);
 
             var agents = agentList.Where(s => s.IsOnShift).OrderBy(s => EfficiencyHelper.Efficiency[s.SeniorityLevel]).ToList();
 
@@ -156,17 +152,19 @@ namespace MoneybaseChat.Infrastructure.Services
             return Task.CompletedTask;
         }
 
-        private List<Agent> GetAllAgents(bool isOverFlow =  false)
+        private List<Agent> GetAllAgents(bool isOverFlow =  false, DateTime? systemDate = null)
         {
             var allAgents = new List<Agent>();
 
-            allAgents.AddRange(_agents);
+            allAgents.AddRange(_agents.Where(s => s.IsOnShift && !s.IsOverflow).ToList());
             
             if (isOverFlow)
             {
-                if (Common.IsOfficeHours(DateTime.Now))
+                if (systemDate is null) systemDate = DateTime.Now;
+
+                if (Common.IsOfficeHours(systemDate!.Value))
                 {
-                    allAgents.AddRange(_overFlowAgents);
+                    allAgents.AddRange(_agents.Where(s => s.IsOnShift && s.IsOverflow).ToList());
                 }
             }
 

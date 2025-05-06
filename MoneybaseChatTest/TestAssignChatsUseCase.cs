@@ -54,14 +54,18 @@ namespace MoneybaseChatTest
             var fixture = new TestFixture();
             var assignChatsUseCase = fixture.ServiceProvider.GetRequiredService<IAssignChatsUseCase>();
             var agentChatCoordinator = fixture.ServiceProvider.GetRequiredService<AgentChatCoordinatorService>();
+            var invokeTimes = 6;
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < invokeTimes; i++)
             {
                 await assignChatsUseCase.AddChatSessionToQueue();
             }
 
             // Act
-            await agentChatCoordinator.AssignChats();
+            for (int i = 0; i < invokeTimes; i++)
+            {
+                await agentChatCoordinator.AssignChats();
+            }
 
             var result = await assignChatsUseCase.GetChatSessions();
 
@@ -69,6 +73,54 @@ namespace MoneybaseChatTest
             Assert.True(result.IsSuccess);
             Assert.Equal(3, result.Value?.Count(s => s.AssignedAgentId == 2));
             Assert.Equal(3, result.Value?.Count(s => s.AssignedAgentId == 3));
+        }
+
+        [Fact]
+        public async Task AssignChats_ShouldAssignToOverFlowAgent()
+        {
+            // Arrange
+            var fixture = new TestFixture();
+            var assignChatsUseCase = fixture.ServiceProvider.GetRequiredService<IAssignChatsUseCase>();
+            var agentChatCoordinator = fixture.ServiceProvider.GetRequiredService<AgentChatCoordinatorService>();
+            var invokeTimes = 50;
+
+            for (int i = 0; i < invokeTimes; i++)
+            {
+                await assignChatsUseCase.AddChatSessionToQueue();
+            }
+
+            var systemDate = new DateTime(2025, 5, 5, 8, 30, 0);
+
+            // Act
+            for (int i = 0; i < invokeTimes; i++)
+            {
+                await agentChatCoordinator.AssignChats(systemDate);
+            }
+
+            //additional session for overflow
+            for (int i = 0; i < invokeTimes; i++)
+            {
+                await assignChatsUseCase.AddChatSessionToQueue();
+            }
+            //assign to overflow agents
+            for (int i = 0; i < invokeTimes; i++)
+            {
+                await agentChatCoordinator.AssignChats(systemDate);
+            }
+
+            var result = await assignChatsUseCase.GetChatSessions();
+
+            // Assert
+            Assert.True(result.IsSuccess);
+            //mid level
+            Assert.Equal(6, result.Value?.Count(s => s.AssignedAgentId == 1));
+
+            //juniors
+            Assert.Equal(4, result.Value?.Count(s => s.AssignedAgentId == 2));
+            Assert.Equal(4, result.Value?.Count(s => s.AssignedAgentId == 3));
+
+            //overflow agent
+            Assert.Equal(1, result.Value?.Count(s => s.AssignedAgentId == 100));
         }
 
     }

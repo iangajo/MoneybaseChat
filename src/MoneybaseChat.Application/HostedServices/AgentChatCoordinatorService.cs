@@ -23,35 +23,43 @@ namespace MoneybaseChat.Application.HostedServices
             await Task.Delay(5000);
             while (!stoppingToken.IsCancellationRequested)
             {
-                await AssignChats();
+                while (await _sessionQueueService.GetCurrentSessionCount() > 0)
+                {
+                    await AssignChats();
+                }
             }
         }
 
-        public async Task AssignChats()
+        public async Task AssignChats(DateTime? systemDate = null)
         {
-            while (await _sessionQueueService.GetCurrentSessionCount() > 0)
+            var session = await _sessionQueueService.TryPeek();
+
+            if (session == null) return;
+            var sessionCount = await _sessionQueueService.GetCurrentSessionCount();
+            var capacity = await _agentsService.GetAgentsCapacityOfOnShiftAsync();
+            var sessions = await _agentManagerService.GetAllSessions();
+
+            var currentCapacity = sessions.Count(s => s.IsActive);
+
+            var isOverFlow = false;
+            if (sessionCount >= capacity)
             {
-                var session = await _sessionQueueService.TryPeek();
-
-                if (session == null) continue;
-                var sessionCount = await _sessionQueueService.GetCurrentSessionCount();
-                var capacity = await _agentsService.GetAgentsCapacityOfOnShiftAsync();
-                var isOverFlow = false;
-                if (sessionCount >= capacity)
-                {
-                    isOverFlow = true;
-                }
-
-                var agent = await _agentsService.GetAgentToAssingChatSession(isOverFlow);
-
-                if (agent is null) continue;
-
-                await _agentManagerService.AssignChatSession(agent.Id, session.SessionId);
-                await _sessionQueueService.RemoveSession();
-
-                await _agentsService.UpdateCurrentChat(agent.Id);
-
+                isOverFlow = true;
             }
+
+            if (currentCapacity >= capacity)
+            {
+                isOverFlow = true;
+            }
+
+            var agent = await _agentsService.GetAgentToAssingChatSession(isOverFlow, systemDate);
+
+            if (agent is null) return;
+
+            await _agentManagerService.AssignChatSession(agent.Id, session.SessionId);
+            await _sessionQueueService.RemoveSession();
+
+            await _agentsService.UpdateCurrentChat(agent.Id);
         }
     }
 }
